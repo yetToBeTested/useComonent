@@ -23,9 +23,6 @@
     color: #fff;
     flex: 1;
   }
-  // a + a {
-  //   margin-left: 10px;
-  // }
 }
 .compont {
   @var: 51px;
