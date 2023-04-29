@@ -1,8 +1,4 @@
 <template>
-  <!-- :pagination="{
-      el: '.pagination',
-      type: 'bullets'
-    }" -->
   <swiper
     @swiper="onSwiper"
     @slideChange="onSlideChange"
@@ -11,12 +7,25 @@
       prevEl: '.prev'
     }"
     :pagination="pagination"
-    :autoplay="false"
-    :modules="[Navigation, Pagination, Autoplay]"
+    :scrollbar="{
+      el: '.swiper-scrollbar',
+      dragSize: 300,
+      draggable: true,
+      enabled: true,
+      hide: false
+    }"
+    :autoplay="{
+      delay: 3000,
+      disableOnInteraction: false
+    }"
+    :direction="'horizontal'"
+    :modules="[Navigation, Pagination, Autoplay, Scrollbar]"
   >
     <swiper-slide><img src="../assets/img/1.jpg" alt="1.jpg" /></swiper-slide>
     <swiper-slide><img src="../assets/img/2.jpg" alt="2.jpg" /></swiper-slide>
-    <swiper-slide><img src="../assets/img/3.jpg" alt="3.jpg" /></swiper-slide>
+    <swiper-slide data-swiper-autoplay="5000"
+      ><img src="../assets/img/3.jpg" alt="3.jpg"
+    /></swiper-slide>
     <swiper-slide><img src="../assets/img/4.jpg" alt="4.jpg" /></swiper-slide>
     <swiper-slide><img src="../assets/img/5.jpg" alt="5.jpg" /></swiper-slide>
     <div class="pagination" id="pagination">
@@ -26,6 +35,7 @@
     </div>
     <div class="prev">prev</div>
     <div class="next">next</div>
+    <div class="swiper-scrollbar"></div>
   </swiper>
 </template>
 
@@ -34,11 +44,12 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { Navigation, Pagination, Autoplay } from 'swiper'
+import 'swiper/css/scrollbar'
+import { Navigation, Pagination, Autoplay, Scrollbar } from 'swiper'
 import { onMounted, ref } from 'vue'
 import type { PaginationOptions } from 'swiper/types'
 
-let mySwiper: any = ref()
+let mySwiper = ref<any>()
 const onSwiper = (swiper: any) => {
   // console.log(swiper)
   mySwiper.value = swiper
@@ -101,10 +112,8 @@ const onSlideChange = () => {
 .swiper {
   width: 100vw;
   height: 100%;
-
   .pagination {
     position: absolute;
-    // text-align: center;
     transition: 0.3s opacity;
     transform: translate3d(0, 0, 0);
     z-index: 10;
@@ -113,6 +122,7 @@ const onSlideChange = () => {
     :deep(img) {
       width: 40px;
       height: 40px;
+      cursor: pointer;
     }
   }
   .prev {

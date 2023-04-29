@@ -15,6 +15,11 @@ const router = createRouter({
           component: () => import('../components/mySwiper.vue')
         },
         {
+          path: 'calc',
+          name: 'calc',
+          component: () => import('../components/mYCalc/myCalc.vue')
+        },
+        {
           path: 'test',
           name: 'test',
           component: () => import('../components/myTest.vue')

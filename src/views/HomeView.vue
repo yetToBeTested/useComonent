@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <router-link to="/swiper">Swiper</router-link>
+    <router-link to="/calc">计算器</router-link>
     <router-link to="/test">Test</router-link>
   </div>
   <div class="compont">
@@ -31,5 +32,8 @@
   background: url('../assets/img/2.jpg') no-repeat center 0;
   background-size: cover;
   background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
