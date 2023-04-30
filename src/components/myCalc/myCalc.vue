@@ -1,6 +1,10 @@
 <template>
   <div class="calc">
-    <div class="res"><input v-model="expression" placeholder="表达式" /></div>
+    <!-- <p>表达式</p> -->
+    <div class="res">
+      <!-- <p>表达式1</p> -->
+      <input v-model="expression" placeholder="表达式" />
+    </div>
     <div class="res"><input v-model="res" placeholder="计算结果" /></div>
     <div class="btn">
       <button></button>
@@ -47,14 +51,39 @@ import { calc } from './calc'
 
 const expression = ref<any>('')
 const res = ref<string>('')
+let falg = false
+let temp = 0
+let calcData = ''
 function handleBtn(num: number | string) {
   if (num === '=') {
+    res.value = ''
     res.value += calc(expression.value)
-    console.log(res.value, 99998)
+    //
     return
   }
-  console.log(num)
-  expression.value += num
+  // console.log(num)
+  const opt = ['+', '-', '*', '/']
+
+  if (typeof num == 'string') {
+    calcData += temp
+    calcData += num
+    console.log(calcData, '22')
+
+    if (opt.includes(num)) {
+      if (falg) {
+        falg = false
+        expression.value += num
+      }
+    } else {
+      expression.value += num
+    }
+  } else {
+    temp = temp * 10 + num
+    // console.log(temp)
+
+    expression.value += num
+    falg = true
+  }
 }
 // "8 + ( 6 - 5 ) * 3 - 9 / 2";
 function handleBtnClera() {
@@ -75,16 +104,21 @@ function handleBtnClera() {
   margin-top: -40px;
   .res {
     margin-top: 20px;
-    width: 200px;
+    // width: 260px;
     height: 25px;
     border: 2px solid #c4c7ce;
     border-radius: 10px;
-    &:hover {
-      border: 2px solid #00ff00;
-    }
+    display: flex;
 
+    &:hover {
+      border-color: #00ff00;
+    }
+    p {
+      width: 60px;
+    }
     input {
       background-color: transparent;
+      width: 200px;
       border: 0;
       outline: 0;
     }

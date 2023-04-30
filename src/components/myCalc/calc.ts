@@ -7,12 +7,18 @@ function calc(str: string) {
   const dataStack = new Array()
   //操作符栈
   const signStack = new Array()
-  strarr.forEach((str) => {
+  let temp = ''
+  strarr.forEach((str, index) => {
     if (!opArr.includes(str)) {
-      //直接入栈
-      dataStack.push(str)
+      temp += str
+      if (strarr.length == index + 1) dataStack.push(temp)
+      if (opArr.includes(strarr[index + 1])) dataStack.push(temp)
+
+      // //直接入栈
+      // dataStack.push(str)
     } else {
       //操作符入栈出栈计算
+      temp = ''
       mtaCalculate(str)
     }
   })
