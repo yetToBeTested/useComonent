@@ -28,7 +28,7 @@
     /></swiper-slide>
     <swiper-slide><img src="../assets/img/4.jpg" alt="4.jpg" /></swiper-slide>
     <swiper-slide><img src="../assets/img/5.jpg" alt="5.jpg" /></swiper-slide>
-    <div class="pagination" id="pagination">
+    <div class="pagination" id="pagination" @click="test">
       <template v-for="(item, index) in paginationsIcon" :key="item">
         <span><img :src="item" alt="" :value="index" /></span>
       </template>
@@ -46,7 +46,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 import { Navigation, Pagination, Autoplay, Scrollbar } from 'swiper'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import type { PaginationOptions } from 'swiper/types'
 
 let mySwiper = ref<any>()
@@ -89,22 +89,29 @@ const pagination = ref<PaginationOptions>({
   }
 })
 
-function getPageIcon() {
-  let paginationHtml = document.getElementById('pagination')?.getElementsByTagName('img') as any
-  // console.log(paginationHtml)
-  for (let i = 0; i < paginationHtml.length; i++) {
-    paginationHtml[i].onclick = function () {
-      mySwiper.value.slideTo(i)
-    }
-  }
+// function getPageIcon() {
+//   let paginationHtml = document.getElementById('pagination')?.getElementsByTagName('img') as any
+//   // console.log(paginationHtml)
+//   for (let i = 0; i < paginationHtml.length; i++) {
+//     paginationHtml[i].onclick = function () {
+//       mySwiper.value.slideTo(i)
+//     }
+//   }
+// }
+
+function test(e: any) {
+  console.log(e.target.getAttribute('value'))
+  mySwiper.value.slideTo(e.target.getAttribute('value'))
 }
 
-onMounted(() => {
-  getPageIcon()
-})
+// onMounted(() => {
+//   // getPageIcon()
+//   // const pagination = document.querySelector('#pagination')
+//   // console.log(pagination)
+// })
 
 const onSlideChange = () => {
-  getPageIcon()
+  // getPageIcon()
 }
 </script>
 
